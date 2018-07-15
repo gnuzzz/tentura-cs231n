@@ -1,5 +1,6 @@
 package ru.albemuth.tentura.cs231n.assignment1
 
+import jcuda.jcublas.{JCublas2, cublasHandle}
 import org.slf4j.LoggerFactory
 import ru.albemuth.jcuda.jcusegsort.{Datatype, KeyValueSortContext, Sorting}
 import ru.albemuth.tentura.cs231n.assignment1.classifiers.KNearestNeighbor
@@ -26,6 +27,8 @@ object Knn extends App {
   val y_test = Vector.of(y_test_data)
   val featuresNum = X_train.columns
 
+  implicit val handle = new cublasHandle
+  JCublas2.cublasCreate(handle)
   val classifier = new KNearestNeighbor()
   classifier.train(X_train, y_train)
 
@@ -77,6 +80,10 @@ object Knn extends App {
 
   classifier.train(X_tr, y_tr)
   val dists = classifier.computeDistancesNoLoops(X_val)
+
+//  X_tr.copy2device(X_tr_folds(0))
+//  y_tr.copy2device(y_tr_folds(0))
+//  X_val.copy2device(X_val_folds(0))
 
   for (k <- k_choices) {
     val accuracies = for (i <- 0 until num_folds) yield {
