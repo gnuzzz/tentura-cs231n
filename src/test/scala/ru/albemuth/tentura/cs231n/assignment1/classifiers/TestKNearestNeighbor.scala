@@ -2,9 +2,7 @@ package ru.albemuth.tentura.cs231n.assignment1.classifiers
 
 import org.scalatest.FunSuite
 import ru.albemuth.tentura.ResultsCache
-import ru.albemuth.tentura.tensor.Matrix.matrixRow
 import ru.albemuth.tentura.tensor.VectorFunctions.{argmax, bincount}
-import ru.albemuth.tentura.tensor.kernel.vector.VectorKernel
 import ru.albemuth.tentura.tensor.{Matrix, Vector, VectorFunctions}
 import ru.albemuth.tentura.util.Memory
 
@@ -12,18 +10,6 @@ import ru.albemuth.tentura.util.Memory
   * @author Vladimir Kornyshev { @literal <gnuzzz@mail.ru>}
   */
 class TestKNearestNeighbor extends FunSuite {
-
-  test("results cache") {
-    val distances = new Matrix[Float](1000, 4000)
-    println(distances.result(matrixRow.kernel[Float], 0, vector(4000)))
-    println(distances.result(matrixRow.kernel[Float], 0, vector(4000)))
-//    println(distances.result(matrixRow, 0, vector(4000)))
-//    println(distances.result(matrixRow, 0, vector(4000)))
-    println(VectorKernel.vector(matrixRow, distances, 0, vector(distances.columns)))
-    println(VectorKernel.vector(matrixRow, distances, 0, vector(distances.columns)))
-    println(VectorKernel.vector(matrixRow, distances, 0, vector(distances.columns)))
-    println(VectorKernel.vector(matrixRow, distances, 0, vector(distances.columns)))
-  }
 
   test("Memory leak") {
     val resultsCache = new ResultsCache
